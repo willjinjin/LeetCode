@@ -1,0 +1,52 @@
+class Solution(object):
+    def merge(self, left, right):
+                sorted = []
+                l, r = 0, 0
+                while l < len(left) and r < len(right):
+                    if left[l] < right[r]:
+                        sorted.append(left[l])
+                        l += 1
+                    else:
+                        sorted.append(right[r])
+                        r += 1
+
+                while l < len(left):
+                    sorted.append(left[l])
+                    l += 1
+                
+                while r < len(right):
+                    sorted.append(right[r])
+                    r += 1
+                    
+                return sorted
+
+    def countpairs(self, left, right):
+        i, j = 0, 0
+        while i < len(left) and j <len(right):
+            if left[i] > 2 * right[j]:
+                self.count += len(left) - i
+                j += 1
+            else:
+                i += 1
+
+    def mergesort(self, lo, hi, list):
+        if lo == hi:
+            return [list[lo]]
+
+        mid = (lo+hi)//2
+
+        left = self.mergesort(lo, mid, list)
+        right = self.mergesort(mid+1, hi, list)
+
+        self.countpairs(left, right)
+
+        return self.merge(left,right)
+
+    def reversePairs(self, nums):
+        lo = 0
+        hi = len(nums) - 1
+
+        self.count = 0 
+        nums = self.mergesort(lo, hi, nums)
+        return self.count
+        
