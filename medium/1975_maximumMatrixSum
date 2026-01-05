@@ -1,0 +1,20 @@
+class Solution(object):
+    def maxMatrixSum(self, matrix):
+        total = 0
+        negCount = 0
+        lowestNeg = float('inf')
+        n = len(matrix)
+        
+        for i in range(n):
+            for j in range(n):
+                val = abs(matrix[i][j])
+                total += val
+                if matrix[i][j] < 0:
+                    negCount += 1
+                if val < lowestNeg:
+                    lowestNeg = val
+        
+        if negCount % 2 != 0:
+            return total - 2 * lowestNeg
+        
+        return total 
