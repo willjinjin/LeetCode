@@ -1,0 +1,16 @@
+class Solution(object):
+    def guessNumber(self, n):
+        lo = 1
+        hi = n
+
+        def binary(lo, hi):
+            mid = (lo + hi) // 2
+            res = guess(mid)
+            if res == 0:
+                return mid
+            elif res == 1:  # target is higher
+                return binary(mid + 1, hi)
+            else:  # res == -1, target is lower
+                return binary(lo, mid - 1)
+
+        return binary(lo, hi)
