@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Solution {
     public int findLucky(int[] arr) {
         int lucky = -1;
