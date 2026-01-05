@@ -1,0 +1,20 @@
+class Solution(object):
+    def numOfWays(self, n):
+        MOD = 10**9 + 7
+        
+        # For the first row:
+        # ABA patterns (like RYR, YRY, etc.): 3 * 2 = 6
+        # ABC patterns (like RYG, RGY, etc.): 3 * 2 * 1 = 6
+        aba = 6
+        abc = 6
+        
+        # For each subsequent row
+        for i in range(1, n):
+            # Calculate new counts based on previous row
+            new_aba = (aba * 3 + abc * 2) % MOD
+            new_abc = (aba * 2 + abc * 2) % MOD
+            
+            aba = new_aba
+            abc = new_abc
+        
+        return (aba + abc) % MOD
