@@ -1,0 +1,14 @@
+class Solution(object):
+    def sumFourDivisors(self, nums):
+        divTotal = 0
+        for i in nums:
+            divSet = {1, i}
+            mod = 2
+            while mod < i**0.5 + 1 and len(divSet) < 5:
+                if i % mod == 0:
+                    divSet.add(mod)
+                    divSet.add(i/mod)
+                mod += 1
+            if len(divSet) == 4:
+                divTotal += sum(divSet)
+        return divTotal
