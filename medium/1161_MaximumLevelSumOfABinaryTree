@@ -1,0 +1,27 @@
+class Solution(object):
+    def maxLevelSum(self, root):
+        queue = deque([root])
+        prevMax = float('-inf')
+        maxLevel = 0
+        current_level = 0
+
+        while queue:
+            current_level += 1
+            level_sum = 0
+            
+            nodes_in_level = len(queue)
+            
+            for i in range(nodes_in_level):
+                node = queue.popleft()
+                level_sum += node.val
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+            if level_sum > prevMax:
+                prevMax = level_sum
+                maxLevel = current_level
+
+        return maxLevel
