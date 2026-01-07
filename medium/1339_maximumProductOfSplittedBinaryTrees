@@ -1,0 +1,19 @@
+class Solution(object):
+    def maxProduct(self, root):
+        value = 0
+        subtreesum = []
+
+        def get_sums(node):
+            if not node:
+                return 0
+            value = node.val + get_sums(node.left) + get_sums(node.right)
+            subtreesum.append(value)
+            return value
+
+        greatestprod = 0
+        total = get_sums(root)
+
+        for i in subtreesum:
+            greatestprod = max(greatestprod, i * (total - i))
+        return greatestprod % (10**9 + 7)
+        
