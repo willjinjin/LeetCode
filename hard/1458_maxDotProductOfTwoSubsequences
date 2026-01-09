@@ -1,0 +1,13 @@
+class Solution(object):
+    def maxDotProduct(self, nums1, nums2):
+        if max(nums1) < 0 and max(nums2) > 0:
+            return max(nums1) * min(nums2)
+
+        if max(nums1) > 0 and max(nums2) < 0:
+            return min(nums1) * max(nums2)
+        
+        grid = [[0] * (len(nums2) + 1) for _ in range(len(nums1) + 1)]
+        for i in range(len(nums1) - 1, -1, -1):
+            for j in range(len(nums2) - 1, -1, -1):
+                grid[i][j] = max(grid[i+1][j], grid[i][j+1], nums1[i] * nums2[j] + grid[i+1][j+1])
+        return grid[0][0]
