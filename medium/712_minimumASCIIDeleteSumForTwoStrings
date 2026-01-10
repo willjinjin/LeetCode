@@ -1,0 +1,18 @@
+class Solution(object):
+    def minimumDeleteSum(self, s1, s2):
+        grid = [[0] * (len(s2) + 1) for _ in range(len(s1) + 1)]
+
+        for i in range(len(s1) -1, -1, -1):
+            grid[i][len(s2)] = grid[i+1][len(s2)] + ord(s1[i])
+
+        for j in range(len(s2) -1, -1, -1):
+            grid[len(s1)][j] = grid[len(s1)][j + 1] + ord(s2[j])
+
+        for i in range(len(s1) - 1, -1, -1):
+            for j in range(len(s2) - 1, -1, -1):
+                if s1[i] == s2[j]:
+                    grid[i][j] = grid[i + 1][j + 1]
+                else:
+                    grid[i][j] = min(ord(s1[i]) + grid[i+1][j], ord(s2[j]) + grid[i][j+1])
+            
+        return grid[0][0]
